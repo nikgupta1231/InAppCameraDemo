@@ -52,9 +52,9 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     private MainDbHelper mainDbHelper;
 
 
-    private static final int REQ_CODE_CAMERA = 100;
-    private static final int REQ_CODE_WRITE_EXTERNAL_STORAGE = 101;
-    private static final int REQ_CODE_FINE_LOCATION = 102;
+    private static final int REQ_CODE_CAMERA = 0x1;
+    private static final int REQ_CODE_WRITE_EXTERNAL_STORAGE = 0x2;
+    private static final int REQ_CODE_FINE_LOCATION = 0x4;
 
     private static final String NO_CAMERA_PERMISSION = "Please give camera permission to capture new images!";
     private static final String NO_READ_WRITE_PERMISSION = "Please give Read & Write permission to save and display images!";
@@ -72,7 +72,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) || shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
                 alertDialogOne = displayNeverAskAgainDialog(NO_CAMERA_PERMISSION + "\n" + NO_READ_WRITE_PERMISSION).show();
             } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, REQ_CODE_CAMERA | REQ_CODE_WRITE_EXTERNAL_STORAGE);
             }
         } else if (!isCamPerGranted) {
             if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
@@ -286,7 +286,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQ_CODE_CAMERA && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if ((requestCode & REQ_CODE_CAMERA) == REQ_CODE_CAMERA && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
             mCameraView = new CameraView(this);
             preview.addView(mCameraView);
