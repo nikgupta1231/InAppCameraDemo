@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InAppCameraDemo</string>
+    <string name="app_name">Camera2</string>
     <string name="title_activity_images_view">ImagesViewActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -97,4 +97,7 @@
     <string name="photo_location">Photo Location</string>
     <string name="sort_by_name">Sort by name</string>
     <string name="sort_by_time">Sort by time</string>
+    <string name="camera_permission_not_available">Camera Permission not Available</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
